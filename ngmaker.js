@@ -18,8 +18,22 @@ var Git = require("nodegit");
 
 var dir = 'angular';
 
+var mkFile = function(dir, file, data){
+    data=(typeof data !== 'undefined')?', '+data:'';
+    dir=(dir==='')?'':(dir+'/');
+
+    fs.mkdir(dir,function(e){
+        if (typeof file !== 'undefined') {
+            fs.writeFile(dir+file, '/* '+dir+' -> '+file+' file'+data+' */', function (err) {
+              if (err) throw err;
+            });
+        }
+    });
+};
+
 fs.mkdir(dir,function(e){
     if(!e || (e.code === 'EEXIST')){
+        mkFile('','index.html','<p>NG MAKER | MD. HASAN SHAHRIAR</p>');
         mkFile(dir+'/directives','main.dic.js');
         mkFile(dir+'/services','main.ser.js');
         mkFile(dir+'/controllers','main.ctrl.js');
@@ -39,15 +53,10 @@ fs.mkdir(dir,function(e){
     }
 });
 
-var mkFile = function(dir, file, data){
-    data=(typeof data !== 'undefined')?', '+data:'';
-    dir=(dir==='')?'':(dir+'/');
-
-    fs.mkdir(dir,function(e){
-        if (typeof file !== 'undefined') {
-            fs.writeFile(dir+file, '/* '+dir+' -> '+file+' file'+data+' */', function (err) {
-              if (err) throw err;
-            });
-        }
-    });
-}
+fs.mkdir('templates',function(e){});
+fs.mkdir('resources',function(e){
+    mkFile('resources/css','style.css');
+    mkFile('resources/js','main.js');
+    mkFile('resources/img');
+    mkFile('resources/fonts');
+});
