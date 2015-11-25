@@ -44,22 +44,21 @@ module.exports = {
                 fs.mkdir(dir+'/library',function(e){});
                 fs.mkdir(dir+'/core',function(e){
                     console.info('Adding latest version of Angular JS...');
-                    Git.Clone('https://github.com/angular/bower-angular', dir+'/core').then(function(repository) {
+                    Git.Clone('https://github.com/angular/bower-angular', dir+'/core').then(function(repository){
                         console.info('Completed');
                     });
                 });
-
             } else {
                 //debug
                 console.log(e);
             }
-});
+        });
         fs.mkdir('templates',function(e){});
         fs.mkdir('resources',function(e){
             mkFile('resources/css','style.css');
             mkFile('resources/js','main.js');
             mkFile('resources/img');
             mkFile('resources/fonts');
-});
+        });
     }
 };
